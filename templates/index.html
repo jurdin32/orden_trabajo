@@ -124,8 +124,20 @@
 </div>
 
 {% endblock %}
+
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    {% if messages %}
+    {% for message in messages %}
+        Swal.fire(
+          'En buena hora!',
+          '{{ message }}',
+          '{{ message.tags }}'
+        )
+    {% endfor %}
+{% endif %}
+</script>
 </body>
 </html>
