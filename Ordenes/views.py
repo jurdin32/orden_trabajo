@@ -39,6 +39,7 @@ def registrar_solicitud(request):
                                        tipo_de_dispositivo_id=request.POST.get('tipo_dispositivo'),
                                        codigo_de_inventario=request.POST.get('codigo'),
                                        descripcion_del_problema=request.POST.get('descripcion_del_problema'),
+                                       estado=False,
                                        )
             orden.numero ='GADMED-UIT-2021-%s'%(str.zfill(str(cantidad),7))
             orden.save()
