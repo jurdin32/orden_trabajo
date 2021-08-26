@@ -25,7 +25,7 @@ def index(request):
     contexto={
         'solicitantes':Solicitantes.objects.all(),
         'dispositivos':Dispositivo.objects.all(),
-        'documentos':documentos,
+        'documentos':documentos.order_by('fecha'),
     }
     return render(request,'index.html',contexto)
 
