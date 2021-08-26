@@ -21,11 +21,6 @@
                 <input type="text" class="form-control" readonly="readonly" value="{{ orden.solicitante.unidad }}"><br>
                 <input type="text" class="form-control" readonly="readonly" value="{{ orden.solicitante.direccion }}"><br>
                 <div class="alert alert-primary" role="alert">Datos de la Orden.</div>
-                <div class="row" style=" padding-top: 10px">
-                    <div class="col-sm-12">
-                        <p>{{ orden.detalles_del_equipo }}</p>
-                    </div>
-                </div>
                 <div class="row" style="text-align: justify; padding-bottom: 20px">
                     <div class="col-sm-2">
                         ¿Quién Aprobó?
@@ -34,14 +29,14 @@
                         <input class="form-control" readonly="readonly" type="text" value="{{ orden.aprobado_por }}">
                     </div>
                     <div class="col-sm-2">
-                        Tipo de dispositivo
+                        Tipo de dispositivo o servicio
                     </div>
                     <div class="col-sm-4">
                         <input class="form-control" readonly="readonly" type="text" value="{{ orden.tipo_de_dispositivo.tipo_equipo }}">
                     </div>
                 </div>
 
-                <div class="alert alert-primary" role="alert">Detalles del Problema.</div>
+                <div class="alert alert-primary" role="alert">Detalles del requerimiento.</div>
                 <textarea name="" readonly="readonly" id="" cols="30" rows="5" class="form-control" style="resize: none">{{ orden.descripcion_del_problema }}</textarea>
                 <br>
                 <a href="/" class="btn btn-warning"><i class="bi bi-arrow-return-left"></i> Volver</a>
@@ -58,7 +53,7 @@
                             <label for="">Recibido por:</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" name="recibido" {% if orden.estado %} value="{{ orden.receptor }}" readonly="readonly" {% endif %} class="form-control" placeholder="Quien recibe el dispositivo"><br>
+                            <input type="text" required="required" name="recibido" {% if orden.estado %} value="{{ orden.receptor }}" readonly="readonly" {% endif %} class="form-control" placeholder="Quien recibe el dispositivo"><br>
                         </div>
                     </div>
 
@@ -67,7 +62,7 @@
                             <label for="">Autorizado por:</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" name="autorizado" {% if orden.estado %} value="{{ orden.autorizado }}" readonly="readonly" {% endif %} class="form-control" placeholder="Quien autoriza"><br>
+                            <input type="text" required="required" name="autorizado" {% if orden.estado %} value="{{ orden.autorizado }}" readonly="readonly" {% endif %} class="form-control" placeholder="Quien autoriza"><br>
                         </div>
                     </div>
 
@@ -76,29 +71,28 @@
                             <label for="">Revisado y soporte por:</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" name="revisado" {% if orden.estado %} value="{{ orden.revisado_por }}" readonly="readonly" {% endif %} class="form-control" placeholder="Quien realiza el soporte">
+                            <input type="text" required="required" name="revisado" {% if orden.estado %} value="{{ orden.revisado_por }}" readonly="readonly" {% endif %} class="form-control" placeholder="Quien realiza el soporte">
                         </div>
                     </div>
                     <br>
-                    <div class="alert alert-primary" role="alert">Detalle técnico del problema y descripción de la solución.</div>
+                    <div class="alert alert-primary" role="alert">Detalle técnico del problema o requerimiento y descripción de la solución.</div>
                     <div class="row">
                         <div class="col-sm-2">
-                            <label for="recipient-name" class="col-form-label">Detalle del equipo:</label>
+                            <label for="recipient-name" class="col-form-label">Detalle del requerimiento:</label>
                         </div>
                         <div class="col-sm-10">
-
-                            <textarea class="form-control" {% if orden.estado %} readonly="readonly" {% endif %} name="detalles_del_equipo" id="detalles_del_equipo" cols="30"rows="2">{{ orden.detalles_del_equipo }}</textarea>
+                            <textarea required="required" class="form-control" {% if orden.estado %} readonly="readonly" {% endif %} name="detalles_del_equipo" id="detalles_del_equipo" cols="30"rows="2">{{ orden.detalles_del_equipo }}</textarea>
                         </div>
                     </div>
                     <br>
-                    <textarea name="problema" id="" {% if orden.estado %} readonly="readonly" {% endif %} cols="30" rows="3" class="form-control"  placeholder="Detalle tecnico del Problema" style="resize: none">{{ orden.detalle_tecnico_del_problema }}</textarea><br>
-                    <textarea name="solucion" id="" {% if orden.estado %} readonly="readonly" {% endif %}  cols="30" rows="3" class="form-control" placeholder="Descripción de la solución" style="resize: none">{{ orden.descripcion_de_la_solucion }}</textarea><br>
+                    <textarea name="problema" required="required" id="" {% if orden.estado %} readonly="readonly" {% endif %} cols="30" rows="3" class="form-control"  placeholder="Detalle tecnico del Problema" style="resize: none">{{ orden.detalle_tecnico_del_problema }}</textarea><br>
+                    <textarea name="solucion" required="required" id="" {% if orden.estado %} readonly="readonly" {% endif %}  cols="30" rows="3" class="form-control" placeholder="Descripción de la solución" style="resize: none">{{ orden.descripcion_de_la_solucion }}</textarea><br>
                     <div class="row">
                         <div class="col-sm-2">
                             <label for="">Materiales Utilizados:</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" name="materiales" {% if orden.estado %} value="{{ orden.materiales_utilizados }}" readonly="readonly" {% endif %} class="form-control" placeholder="Materiales utilizados para dar el soporte">
+                            <input type="text" required="required" name="materiales" {% if orden.estado %} value="{{ orden.materiales_utilizados }}" readonly="readonly" {% endif %} class="form-control" placeholder="Materiales utilizados para dar el soporte">
                         </div>
                     </div>
                     <br>
@@ -107,7 +101,7 @@
                             <label for="">Herramientas utilizadas:</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" name="herramientas" {% if orden.estado %} value="{{ orden.herramientas_utilizadas }}" readonly="readonly" {% endif %} class="form-control" placeholder="Herramientas utilizados para dar el soporte">
+                            <input type="text" required="required" name="herramientas" {% if orden.estado %} value="{{ orden.herramientas_utilizadas }}" readonly="readonly" {% endif %} class="form-control" placeholder="Herramientas utilizados para dar el soporte">
                         </div>
                     </div>
                     <br>
@@ -116,7 +110,7 @@
                             <label for="">Tipo de Servicio:</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" name="tipo_servicio" {% if orden.estado %} value="{{ orden.tipos_de_servicio }}" readonly="readonly" {% endif %} class="form-control" placeholder="Tipo de asistencia Técnica">
+                            <input type="text" required="required" name="tipo_servicio" {% if orden.estado %} value="{{ orden.tipos_de_servicio }}" readonly="readonly" {% endif %} class="form-control" placeholder="Tipo de asistencia Técnica">
                         </div>
                     </div>
                     <br>
@@ -125,7 +119,7 @@
                             <label for="">Quien realiza la entrega?:</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" name="entregado" {% if orden.estado %} value="{{ orden.entregado_por }}" readonly="readonly" {% endif %} class="form-control" placeholder="Nombre de quien realiza la entrega">
+                            <input type="text" required="required" name="entregado" {% if orden.estado %} value="{{ orden.entregado_por }}" readonly="readonly" {% endif %} class="form-control" placeholder="Nombre de quien realiza la entrega">
                         </div>
                     </div>
                     <br>

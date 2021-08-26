@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
@@ -31,15 +32,20 @@ def index(request):
 
 def registrar_solicitud(request):
     if request.POST:
-        cantidad=Orden.objects.count()
-        orden=Orden.objects.create(solicitante_id=request.POST.get('solicitante'),
-                                   aprobado_por= request.POST.get('aprobado_por'),
-                                   tipo_de_dispositivo_id=request.POST.get('tipo_dispositivo'),
-                                   codigo_de_inventario=request.POST.get('codigo'),
-                                   descripcion_del_problema=request.POST.get('descripcion_del_problema'),
-                                   )
-        orden.numero ='GADMED-UIT-2021-%s'%(str.zfill(str(cantidad),7))
-        orden.save()
+        try:
+            cantidad=Orden.objects.count()
+            orden=Orden.objects.create(solicitante_id=request.POST.get('solicitante'),
+                                       aprobado_por= request.POST.get('aprobado_por'),
+                                       tipo_de_dispositivo_id=request.POST.get('tipo_dispositivo'),
+                                       codigo_de_inventario=request.POST.get('codigo'),
+                                       descripcion_del_problema=request.POST.get('descripcion_del_problema'),
+                                       )
+            orden.numero ='GADMED-UIT-2021-%s'%(str.zfill(str(cantidad),7))
+            orden.save()
+            messages.add_message(request,messages.SUCCESS,"Registro Creado exitosamente..!")
+        except:
+            messages.add_message(request, messages.ERROR, "No se registro debido a que es necesario seleccionar el requiriente y el tipo de dispositivo o servicio..!")
+            pass
     return HttpResponseRedirect("/")
 
 def ver_ordenes(request, slug):
@@ -58,6 +64,7 @@ def ver_ordenes(request, slug):
         orden.entregado_por=request.POST.get('entregado')
         orden.fecha_entrega=datetime.datetime.now()
         orden.save()
+        messages.add_message(request, messages.SUCCESS, "Registro Creado exitosamente..!")
     contexto={
         'orden':orden,
     }

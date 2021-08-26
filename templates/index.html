@@ -63,8 +63,8 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Solicitado por:</label>
-                        <select class="form-control" name="solicitante" id="solicitante">
-                            <option value="0"> --Seleccione --</option>
+                        <select class="form-control" required="required" name="solicitante" id="solicitante">
+                            <option> --Seleccione --</option>
                             {% for solicitante in solicitantes %}
                                 <option value="{{ solicitante.id }}">{{ solicitante.nombre }}</option>
                             {% endfor %}
@@ -73,28 +73,28 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <label for="recipient-name" class="col-form-label">Cargo:</label>
-                            <input type="text" readonly="readonly" class="form-control" id="cargo" name="cargo">
+                            <input type="text" readonly="readonly" required="required" class="form-control" id="cargo" name="cargo">
                         </div>
                         <div class="col-sm-6">
                             <label for="recipient-name" class="col-form-label">Unidad:</label>
-                            <input type="text" readonly="readonly" class="form-control" id="unidad" name="unidad">
+                            <input type="text" readonly="readonly" required="required" class="form-control" id="unidad" name="unidad">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label for="recipient-name" class="col-form-label">Dirección:</label>
-                            <input type="text" readonly="readonly" class="form-control" id="direccion" name="direccion">
+                            <label for="recipient-name"  class="col-form-label">Dirección:</label>
+                            <input type="text" readonly="readonly" required="required" class="form-control" id="direccion" name="direccion">
                         </div>
                         <div class="col-sm-6">
                             <label for="recipient-name" class="col-form-label">Aprobado por:</label>
-                            <input type="text" class="form-control" id="aprobado_por" name="aprobado_por">
+                            <input type="text" required="required" class="form-control" id="aprobado_por" name="aprobado_por">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label for="recipient-name" class="col-form-label">Información del dispositivo:</label>
-                            <select name="tipo_dispositivo" class="form-control" id="tipo_dispositivo">
-                                <option value="0">-- Seleccione --</option>
+                            <label for="recipient-name" class="col-form-label">Información del dispositivo o tipo de servicio:</label>
+                            <select name="tipo_dispositivo" required="required" class="form-control" id="tipo_dispositivo">
+                                <option>-- Seleccione --</option>
                                 {% for dispositivo in dispositivos %}
                                     <option value="{{ dispositivo.id }}">{{ dispositivo.tipo_equipo }}</option>
                                 {% endfor %}
@@ -102,14 +102,14 @@
                         </div>
                         <div class="col-sm-6">
                             <label for="recipient-name" class="col-form-label">Código de Inventario
-                                Insitucional:</label>
+                                Insitucional (Opcional):</label>
                             <input type="text" class="form-control" id="codigo" name="codigo">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <label for="recipient-name" class="col-form-label">Descripción del Problema:</label>
-                            <textarea class="form-control" name="descripcion_del_problema" id="descripcion_del_problema"
+                            <textarea class="form-control" required="required" name="descripcion_del_problema" id="descripcion_del_problema"
                                       cols="30" rows="2"></textarea>
                         </div>
                     </div>
