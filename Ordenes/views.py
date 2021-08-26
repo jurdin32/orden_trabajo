@@ -53,6 +53,7 @@ def ver_ordenes(request, slug):
         orden.materiales_utilizados=request.POST.get('materiales')
         orden.herramientas_utilizadas=request.POST.get('herramientas')
         orden.tipos_de_servicio=request.POST.get('tipo_servicio')
+        orden.detalles_del_equipo=request.POST.get('detalles_del_equipo')
         orden.estado=True
         orden.entregado_por=request.POST.get('entregado')
         orden.fecha_entrega=datetime.datetime.now()
