@@ -21,11 +21,11 @@ def index(request):
         search=request.GET.get('q')
         search_fields = ['solicitante__nombre', 'tipo_de_dispositivo__tipo_equipo', 'descripcion_del_problema','detalles_del_equipo']
         f = search_filter(search_fields, search)
-        documentos = Orden.objects.filter(f)
+        documentos = Orden.objects.filter(f).order_by('-fecha')
     contexto={
         'solicitantes':Solicitantes.objects.all(),
         'dispositivos':Dispositivo.objects.all(),
-        'documentos':documentos.order_by('-fecha'),
+        'documentos':documentos,
     }
     return render(request,'index.html',contexto)
 
