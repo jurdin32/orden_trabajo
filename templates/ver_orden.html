@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <br>
-                    <textarea name="problema" id="" {% if orden.estado %} readonly="readonly" {% endif %} cols="30" rows="3" class="form-control"  placeholder="Detalle tecnico del Problema" style="resize: none">{{ orden.receptor }}</textarea><br>
+                    <textarea name="problema" id="" {% if orden.estado %} readonly="readonly" {% endif %} cols="30" rows="3" class="form-control"  placeholder="Detalle tecnico del Problema" style="resize: none">{{ orden.detalle_tecnico_del_problema }}</textarea><br>
                     <textarea name="solucion" id="" {% if orden.estado %} readonly="readonly" {% endif %}  cols="30" rows="3" class="form-control" placeholder="Descripción de la solución" style="resize: none">{{ orden.descripcion_de_la_solucion }}</textarea><br>
                     <div class="row">
                         <div class="col-sm-2">
