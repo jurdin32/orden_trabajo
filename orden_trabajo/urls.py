@@ -22,6 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',index),
     path('registrar_solicitud/',registrar_solicitud),
+    path('data/<int:id>/',datos_solicitante),
+    path('dispositivo/<int:id>/',obtener_dispositivo),
     path('orden/<slug:slug>/',ver_ordenes),
     path('reporte/<slug:slug>/',reporte),
     path('reporte/sistemas/<slug:slug>/',reporte_2)

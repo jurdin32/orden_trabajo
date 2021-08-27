@@ -4,6 +4,7 @@ from django.db import models
 
 class Dispositivo(models.Model):
     tipo_equipo=models.CharField(max_length=60)
+    dispositivo=models.BooleanField(default=True)
 
     class Meta:
         verbose_name_plural="Tipo de dispositivo"

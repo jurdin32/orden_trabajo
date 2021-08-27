@@ -1,7 +1,7 @@
 import datetime
 
 from django.contrib import messages
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -29,6 +29,25 @@ def index(request):
     }
     return render(request,'index.html',contexto)
 
+
+def datos_solicitante(request,id):
+    solicitante=Solicitantes.objects.get(id=id)
+    data={}
+    data['id']=solicitante.id
+    data['nombre']=solicitante.nombre
+    data['cargo']=solicitante.cargo
+    data['unidad']=solicitante.unidad
+    data['direccion']=solicitante.direccion
+    return JsonResponse([data],safe=False)
+
+def obtener_dispositivo(request,id):
+    dispositivo=Dispositivo.objects.get(id=id)
+    data={}
+    if dispositivo.dispositivo:
+        data['tipo']=1
+    else:
+        data['tipo']=2
+    return JsonResponse([data], safe=False)
 
 def registrar_solicitud(request):
     if request.POST:
