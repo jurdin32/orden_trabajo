@@ -44,7 +44,7 @@
             </div>
             <p class="mb-1"> Dispositivo: {{ documento.tipo_de_dispositivo }} | {{ documento.detalles_del_equipo }} |
                 Problema: {{ documento.descripcion_del_problema }}</p>
-            <small style="font-weight: bold">{% if documento.estado %}Resuelto {% else %}Aún en el área técnica{% endif %}</small>
+            <small style="font-weight: bold">{% if documento.estado %}<span class="badge bg-success">Resuelto</span> {% else %}<span class="badge bg-danger">Aún en el área técnica</span>{% endif %}</small>
         </a>
     {% endfor %}
 </div>
