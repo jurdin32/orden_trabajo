@@ -52,7 +52,7 @@ def obtener_dispositivo(request,id):
 def registrar_solicitud(request):
     if request.POST:
         try:
-            cantidad=Orden.objects.count()
+            cantidad=Orden.objects.count()+1
             orden=Orden.objects.create(solicitante_id=request.POST.get('solicitante'),
                                        aprobado_por= request.POST.get('aprobado_por'),
                                        tipo_de_dispositivo_id=request.POST.get('tipo_dispositivo'),
