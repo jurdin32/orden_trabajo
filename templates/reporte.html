@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html {
+            font-size: 12px;
+        }
+
+        @page {
+            size: a4 portrait;
+            @frame header_frame { /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 0pt;
+            top: 100pt;
+            right: 0pt;
+            }
+            @frame content_frame {
+                /* Content Frame */
+            left: 50pt; width: 512pt; top: 150pt; height: 500pt;
+            }
+            @frame footer_frame {
+                /* Another static Frame */
+            -pdf-frame-content:footer_content;
+            left: 0pt;right: 0pt; top: 40pt;bottom: 0pt;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="header_content" style="text-align: center">
+    <h2>UNIDAD DE INFRAESTRUCTURA TECNOLÓGICA</h2>
+    <h2>Orden de trabajo No.: {{ orden.numero }}</h2>
+</div>
+<div id="content">
+    <h1 style="text-align: center">UNIDAD DE INFRAESTRUCTURA TECNOLÓGICA</h1>
+    <h2>DATOS DEL SOLICITANTE:</h2>
+    <table>
+        <tr style="padding-top: 5px;">
+            <td style="font-weight: bold; width: 30%">Solicitado por:</td>
+            <td style="width: 50%">{{ orden.solicitante.nombre }}</td>
+            <td style="font-weight: bold;">Fecha:</td>
+            <td>{{ orden.fecha|date:"d M Y" }}</td>
+        </tr>
+        <tr style="padding-top: 5px;">
+            <td style="font-weight: bold">Cargo:</td>
+            <td>{{ orden.solicitante.cargo }}</td>
+            <td style="font-weight: bold;">Hora:</td>
+            <td>{{ orden.fecha|date:"H:m:s" }}</td>
+        </tr>
+        <tr style="padding-top: 5px;">
+            <td style="font-weight: bold">Unidad:</td>
+            <td colspan="3">{{ orden.solicitante.unidad }}</td>
+        </tr>
+        <tr style="padding-top: 5px;">
+            <td style="font-weight: bold">Dirección:</td>
+            <td colspan="3">{{ orden.solicitante.direccion }}</td>
+        </tr>
+        <tr style="padding-top: 5px;">
+            <td style="font-weight: bold">Aprobado por:</td>
+            <td colspan="3">{{ orden.aprobado_por }}</td>
+        </tr>
+        <tr style="padding-top: 5px;">
+            <td style="font-weight: bold">Tipo de equipo:</td>
+            <td colspan="3">{{ orden.tipo_de_dispositivo }}</td>
+        </tr>
+        <tr style="padding-top: 5px;">
+            <td style="font-weight: bold">Código de Inventario Institucional:</td>
+            <td colspan="3">{% if orden.codigo_de_inventario %}{{ orden.codigo_de_inventario }}{% else %}No se
+                proporcionó{% endif %} </td>
+        </tr>
+	<tr style="padding-top: 5px;">
+            <td colspan=4 style="font-weight: bold">Descripción del requerimiento:</td>
+        </tr>
+
+        <tr style="padding-top: 5px;text-align:justify">
+     
+            <td colspan="4">{{ orden.descripcion_del_problema|linebreaks }}</td>
+        </tr>
+    </table>
+    <br><br>
+    <table>
+        <tr style="border: 1px solid black;padding-top: 30px; text-align: center">
+            <td>{{ orden.solicitante.nombre }}</td>
+            <td>{{ orden.receptor }}</td>
+        </tr>
+        <tr style="border: 1px solid black; padding-top: 5px; text-align: center">
+            <td>Firma del Solicitante</td>
+            <td>Firma del Receptor</td>
+        </tr>
+    </table>
+</div>
+<div id="footer_content" style="text-align: center">
+    <img src="http://127.0.0.1:8000/static/imagen_documento.png" alt="">
+    <br>
+    (c) - page <pdf:pagenumber> de <pdf:pagecount>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <title>Busqueda de solicitudes.</title>
+</head>
+<body class="container" style="text-align: justify;">
+{% block contenido %}
+<div style="text-align: center; padding: 20px">
+    <img src="{% static 'ElGuabo.png' %}" alt="">
+    <br><br>
+    <label for="">Unidad de Infraestructura Tenológica</label><br>
+    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-link">Registrar Orden de
+        trabajo</a>
+</div>
+<br><br>
+<form action="" method="get">
+    <div class="row">
+        <div class="col-sm-12">
+            <input class="form-control" list="datalistOptions" id="q" name="q"
+                   placeholder="Buscar por nombre, tipo de dispositivo o problema...">
+            <datalist id="datalistOptions">
+                {% for solicitante in solicitantes %}
+                    <option value="{{ solicitante.nombre }}">
+                {% endfor %}
+            </datalist>
+        </div>
+    </div>
+</form>
+<br><br>
+{% if request.GET.q %}
+    <label for="" style="text-align: justify">Busqueda para: {{ request.GET.q }}</label>
+{% endif %}
+
+<br><br>
+<div class="list-group" style="text-align: justify">
+    {% for documento in documentos %}
+        <a href="/orden/{{ documento.numero }}" class="list-group-item list-group-item-action" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ documento.solicitante.nombre }}</h5>
+                <small>{{ documento.fecha }}</small>
+            </div>
+            <p class="mb-1"> Dispositivo: {{ documento.tipo_de_dispositivo }} | {{ documento.detalles_del_equipo }} |
+                Problema: {{ documento.descripcion_del_problema }}</p>
+            <small style="font-weight: bold">{% if documento.estado %}Resuelto {% else %}Aún en el área técnica{% endif %}</small>
+        </a>
+    {% endfor %}
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+     style="text-align: justify">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Solicitud de Orden de trabajo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="/registrar_solicitud/">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Solicitado por:</label>
+                        <select class="form-control" required="required" name="solicitante" id="solicitante">
+                            <option> --Seleccione --</option>
+                            {% for solicitante in solicitantes %}
+                                <option value="{{ solicitante.id }}">{{ solicitante.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="recipient-name" class="col-form-label">Cargo:</label>
+                            <input type="text" readonly="readonly" required="required" class="form-control" id="cargo" name="cargo">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="recipient-name" class="col-form-label">Unidad:</label>
+                            <input type="text" readonly="readonly" required="required" class="form-control" id="unidad" name="unidad">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="recipient-name"  class="col-form-label">Dirección:</label>
+                            <input type="text" readonly="readonly" required="required" class="form-control" id="direccion" name="direccion">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="recipient-name" class="col-form-label">Aprobado por:</label>
+                            <input type="text" required="required" class="form-control" id="aprobado_por" name="aprobado_por">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="recipient-name" class="col-form-label">Información del dispositivo o tipo de servicio:</label>
+                            <select name="tipo_dispositivo" required="required" class="form-control" id="tipo_dispositivo">
+                                <option>-- Seleccione --</option>
+                                {% for dispositivo in dispositivos %}
+                                    <option value="{{ dispositivo.id }}">{{ dispositivo.tipo_equipo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="recipient-name" class="col-form-label">Código de Inventario
+                                Insitucional (Obligatorio si aplica):</label>
+                            <input type="text" class="form-control" id="codigo" name="codigo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="recipient-name" class="col-form-label">Descripción del Problema:</label>
+                            <textarea class="form-control" required="required" name="descripcion_del_problema" id="descripcion_del_problema"
+                                      cols="30" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Registrar Orden de trabajo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+{% if messages %}
+    {% for message in messages %}
+        Swal.fire(
+          'Aviso!',
+          '{{ message }}',
+          '{{ message.tags }}'
+        )
+    {% endfor %}
+{% endif %}
+$('#solicitante').change(function(){
+    $.get("/data/"+$(this).val()+"/",function (data){
+        console.log(data[0])
+        $("#cargo").val(data[0].cargo)
+        $("#unidad").val(data[0].unidad)
+        $("#direccion").val(data[0].direccion)
+    });
+}).change();
+</script>
+<script>
+    $('#tipo_dispositivo').change(function (){
+        $.get('/dispositivo/'+$(this).val()+"/",function(data){
+            console.log(data[0])
+            if(parseInt(data[0].tipo)==2){
+                $("#codigo").attr('readonly','readonly')
+                $("#codigo").attr('required','required')
+            }
+            else{
+                $("#codigo").removeAttr('readonly')
+                $("#codigo").removeAttr('required')
+            }
+        })
+    }).change()
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html {
+            font-size: 13px;
+        }
+
+        @page {
+            size: a4 portrait;
+            @frame header_frame { /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 0pt;
+            top: 0pt;
+            right: 0pt;
+            }
+            @frame content_frame {
+                /* Content Frame */
+            left: 50pt; width: 512pt; top: 115pt; height: 600pt;
+            }
+            @frame footer_frame {
+                /* Another static Frame */
+            -pdf-frame-content:footer_content;
+            left: 0pt;right: 0pt; top: 40pt;bottom: 0pt;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="content">
+    <h2 style="text-align: center">UNIDA DE INFRAESTRUCTURA TECNOLÓGICA</h2>
+    <h2 style="text-align: center">Orden de trabajo No.: {{ orden.numero }}</h2>
+    <h2 style="text-align: justify">DATOS REGISTRADOS POR LA UNIDAD DE INFRAESTRUCTURA TECNOLÓGICA DEL G.A.D. MUNICIPAL
+        DEL CANTÓN EL GUABO.</h2>
+    <table>
+        <tr style="padding-top: 5px">
+            <td style="font-weight: bold; width: 30%">Recibido por:</td>
+            <td style="width: 45%">{{ orden.receptor }}</td>
+            <td style="font-weight: bold;">Fecha:</td>
+            <td>{{ orden.fecha_entrega|date:"d M Y" }}</td>
+        </tr>
+        <tr style="padding-top: 5px">
+            <td style="font-weight: bold;">Autorizado por:</td>
+            <td>{{ orden.autorizado }}</td>
+            <td style="font-weight: bold;">Hora:</td>
+            <td>{{ orden.fecha_entrega|date:"H:m:s" }}</td>
+        </tr>
+        <tr style="padding-top: 5px">
+            <td style="font-weight: bold">Revisado por:</td>
+            <td colspan="3">{{ orden.revisado_por }}</td>
+        </tr>
+        <tr style="padding-top: 5px;">
+            <td style="font-weight: bold">Detalle del equipo:</td>
+            <td colspan="3">{{ orden.detalles_del_equipo }}</td>
+        </tr>
+        <tr style="padding-top: 5px">
+            <td style="font-weight: bold">Detalle técnico del requerimiento:</td>
+            <td colspan="3">{{ orden.detalle_tecnico_del_problema }}</td>
+        </tr>
+       <tr style="padding-top: 5px">
+            <td style="font-weight: bold" colspan="4">Descripción de la solución:</td>
+        </tr>
+	<tr style="padding-top: 5px; text-align: justify;">
+            <td colspan="4">{{ orden.descripcion_de_la_solucion|linebreaks }}</td>
+        </tr>
+
+        <tr style="padding-top: 5px">
+            <td style="font-weight: bold">Materiales utilizados:</td>
+            <td colspan="3">{{ orden.materiales_utilizados }}</td>
+        </tr>
+        <tr style="padding-top: 5px">
+            <td style="font-weight: bold">Herramientas Utilizadas:</td>
+            <td colspan="3">{{ orden.herramientas_utilizadas }}</td>
+        </tr>
+       <tr style="padding-top: 5px">
+            <td style="font-weight: bold">Tipo de Servicio:</td>
+            <td colspan="3">{{ orden.tipos_de_servicio }}</td>
+        </tr>
+    </table>
+    <br><br>
+    <table>
+        <tr style="border: 1px solid black;padding-top: 30px; text-align: center">
+            <td>{{ orden.solicitante.nombre }}</td>
+            <td>{{ orden.receptor }}</td>
+        </tr>
+        <tr style="border: 1px solid black; padding-top: 5px; text-align: center">
+            <td>Firma del Solicitante</td>
+            <td>Firma del Receptor</td>
+        </tr>
+    </table>
+</div>
+<div id="footer_content" style="text-align: center">
+    <img src="http://127.0.0.1:8000/static/imagen_documento.png" alt="">
+    <br>
+    (c) - page <pdf:pagenumber> de <pdf:pagecount>
+</div>
+
+</body>
+</html>
