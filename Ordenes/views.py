@@ -16,7 +16,7 @@ from orden_trabajo.snippers import render_to_pdf
 
 
 def index(request):
-    documentos=""
+    documentos=Orden.objects.all().order_by('-fecha')
     if request.GET.get('q'):
         search=request.GET.get('q')
         search_fields = ['solicitante__nombre', 'tipo_de_dispositivo__tipo_equipo', 'descripcion_del_problema','detalles_del_equipo']
